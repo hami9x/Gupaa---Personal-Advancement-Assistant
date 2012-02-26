@@ -1,5 +1,5 @@
 #include <QtGui/QApplication>
-#include <QDeclarativeEngine>
+#include <QtDeclarative/QDeclarativeEngine>
 #include "qmlapplicationviewer.h"
 #include "ResourceImageProvider.h"
 

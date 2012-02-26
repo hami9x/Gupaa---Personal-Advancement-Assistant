@@ -1,7 +1,7 @@
 #ifndef RESOURCEIMAGEPROVIDER_H
 #define RESOURCEIMAGEPROVIDER_H
 
-#include <QDeclarativeImageProvider>
+#include <QtDeclarative/QDeclarativeImageProvider>
 
 class ResourceImageProvider: public QDeclarativeImageProvider
 {
