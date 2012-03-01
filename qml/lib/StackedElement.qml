@@ -14,8 +14,9 @@ Item {
     }
 
     function next() {
+        //console.debug("StackedElement::Current element: ", current);
         children[current].visible = false;
-        if (current>length-1) current=0;
+        if (current>=length-1) current=0;
         else current++;
         children[current].visible = true;
     }
