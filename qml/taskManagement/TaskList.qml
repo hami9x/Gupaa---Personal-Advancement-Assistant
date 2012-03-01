@@ -8,14 +8,14 @@ Rectangle {
         id: tListDelegate
         Item {
             width: tListView.width; height: 55
-            /* Item {
+            Item {
                 id: nameContainer
                 anchors.left: parent.left
                 anchors.right: toolboxContainer.left
                 anchors.verticalCenter: toolboxContainer.verticalCenter
                 anchors.margins: 10
 
-                /*StackedElement {
+                StackedElement {
                     id: stack
                     Text {
                         text: name
@@ -28,14 +28,14 @@ Rectangle {
                     text: name
                 }
 
-                /*MouseArea {
+                MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         console.log("Clicked");
                         stack.next();
                     }
                 }
-            }*/
+            }
             Row {
                 id: toolboxContainer
                 anchors.right: parent.right
@@ -69,12 +69,6 @@ Rectangle {
 
     ListView {
         id: tListView
-        x: 234
-        y: -131
-        anchors.rightMargin: -234
-        anchors.bottomMargin: 131
-        anchors.leftMargin: 234
-        anchors.topMargin: -131
         anchors.fill: parent
 
         model: TaskListModel {}
