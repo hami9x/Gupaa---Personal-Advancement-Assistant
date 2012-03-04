@@ -53,12 +53,24 @@ Rectangle {
                 }
 
                 Column {
+                    id: arrowsContainer
+                    property int pointStep: 1
+
                     anchors.verticalCenter: toolboxContainer.verticalCenter
+
                     PushButton {
-                        source: "image://qrc/pics/arrow-up.png"
+                        source: "image://qrc/pics/arrow-up.png"                        
+                        onClicked: {
+                            var moveTo = index==0 ? tListModel.count-1 : index-1
+                            tListModel.move(index, moveTo, 1)
+                        }
                     }
                     PushButton {
                         source: "image://qrc/pics/arrow-down.png"
+                        onClicked: {
+                            var moveTo = index==tListModel.count-1 ? 0 : index+1;
+                            tListModel.move(index, moveTo, 1)
+                        }
                     }
                 }
 
@@ -75,7 +87,9 @@ Rectangle {
         id: tListView
         anchors.fill: parent
 
-        model: TaskListModel {}
+        model: TaskListModel {
+            id: tListModel
+        }
 
         delegate: tListDelegate
     }
