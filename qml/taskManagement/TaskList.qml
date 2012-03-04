@@ -43,17 +43,17 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 10
                 width: 70
-                Image {
+                PushButton {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
                     source: "image://qrc/pics/edit.png"
                 }
 
                 Column {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
-                    Image {
+                    PushButton {
                         source: "image://qrc/pics/arrow-up.png"
                     }
-                    Image {
+                    PushButton {
                         source: "image://qrc/pics/arrow-down.png"
                     }
                 }
