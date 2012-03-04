@@ -3,10 +3,23 @@ import QtQuick 1.1
 
 Image {
     id: pushBtn
+    signal pressed
+    signal released
+    signal clicked
 
     MouseArea {
         anchors.fill: parent
-        onPressed: pushBtn.scale = 0.9
-        onReleased: pushBtn.scale = 1
+        onPressed: {
+            pushBtn.scale = 0.9;
+            pushBtn.pressed();
+        }
+        onReleased: {
+            pushBtn.scale = 1;
+            pushBtn.released();
+        }
+
+        onClicked: {
+            pushBtn.clicked();
+        }
     }
 }

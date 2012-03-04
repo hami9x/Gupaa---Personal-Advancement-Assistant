@@ -8,7 +8,7 @@ Rectangle {
         id: tListDelegate
         Item {
             width: tListView.width; height: 55
-            Rectangle {
+            FocusScope {
                 id: nameContainer
                 anchors.margins: 10                
                 anchors.left: parent.left
@@ -29,8 +29,10 @@ Rectangle {
                     TextEdit {
                         id: input
                         anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        anchors.left: parent.left
                         text: name
-                        focus: false
+                        focus: true
                         cursorPosition: text.length
                         selectByMouse: true
                     }
@@ -46,6 +48,8 @@ Rectangle {
                 PushButton {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
                     source: "image://qrc/pics/edit.png"
+
+                    onClicked: nameContainer.forceActiveFocus()
                 }
 
                 Column {
