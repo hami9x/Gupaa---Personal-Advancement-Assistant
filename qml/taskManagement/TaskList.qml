@@ -28,9 +28,11 @@ Rectangle {
 
                     TextEdit {
                         id: input
+                        anchors.verticalCenter: parent.verticalCenter
                         text: name
                         focus: false
                         cursorPosition: text.length
+                        selectByMouse: true
                     }
                 }
             }
