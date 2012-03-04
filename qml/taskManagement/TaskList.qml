@@ -26,15 +26,12 @@ Rectangle {
                         }
                     }
 
-                    TextEdit {
+                    SimpleTextEdit {
                         id: input
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         anchors.left: parent.left
                         text: name
-                        focus: true
-                        cursorPosition: text.length
-                        selectByMouse: true
                     }
                 }
             }
@@ -74,7 +71,7 @@ Rectangle {
                     }
                 }
 
-                Text {
+                SimpleTextEdit {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
                     text: point
                 }
