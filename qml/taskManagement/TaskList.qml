@@ -8,31 +8,29 @@ Rectangle {
         id: tListDelegate
         Item {
             width: tListView.width; height: 55
-            Item {
+            Rectangle {
                 id: nameContainer
+                anchors.margins: 10                
                 anchors.left: parent.left
                 anchors.right: toolboxContainer.left
-                anchors.verticalCenter: toolboxContainer.verticalCenter
-                anchors.margins: 10
+                anchors.top: parent.top
+                anchors.bottom:  parent.bottom
 
-                StackedElement {
-                    id: stack
-                    Text {
-                        text: name
-                    }
-                    Text {
-                        text: "^^^^"
-                    }
-                }
-                Text {
-                    text: name
-                }
-
-                MouseArea {
+                Item {
+                    id: inputContainer
                     anchors.fill: parent
-                    onClicked: {
-                        console.log("Clicked");
-                        stack.next();
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            input.forceActiveFocus();
+                        }
+                    }
+
+                    TextEdit {
+                        id: input
+                        text: name
+                        focus: false
+                        cursorPosition: text.length
                     }
                 }
             }

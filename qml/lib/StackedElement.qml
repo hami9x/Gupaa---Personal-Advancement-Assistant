@@ -7,6 +7,8 @@ Item {
     property int current: 0
     property int length: children.length
 
+    signal clicked
+
     Component.onCompleted: {
         for (var i=1; i<length; i++) {
             children[i].visible = false;
@@ -14,10 +16,12 @@ Item {
     }
 
     function next() {
-        //console.debug("StackedElement::Current element: ", current);
+        console.debug("StackedElement::Current element: ", current);
         children[current].visible = false;
         if (current>=length-1) current=0;
         else current++;
         children[current].visible = true;
     }
+
+    onClicked: next()
 }
