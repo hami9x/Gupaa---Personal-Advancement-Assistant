@@ -32,6 +32,10 @@ Rectangle {
                         anchors.right: parent.right
                         anchors.left: parent.left
                         text: name
+
+                        onTextChanged: {
+                            tListModel.setProperty(index, "name", text);
+                        }
                     }
                 }
             }
@@ -74,6 +78,10 @@ Rectangle {
                 SimpleTextEdit {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
                     text: point
+
+                    onTextChanged: {
+                        tListModel.setProperty(index, "point", text);
+                    }
                 }
             }
         }
@@ -82,7 +90,19 @@ Rectangle {
 
     ListView {
         id: tListView
-        anchors.fill: parent
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: btnsContainer.top
+
+        function modelAddItem() {
+            model.append({"name": qsTr("Here are some texts that describe a task, click here to edit"), "point": 0});
+        }
+
+        function modelRemoveAll() {
+            model.clear();
+        }
 
         model: TaskListModel {
             id: tListModel
@@ -91,4 +111,23 @@ Rectangle {
         delegate: tListDelegate
     }
 
+    Row {
+        id: btnsContainer
+        spacing: 10
+        anchors.margins: 10
+        anchors.bottom: parent.bottom
+
+        TextButton {
+            text: qsTr("Add new task")
+            onClicked: tListView.modelAddItem()
+        }
+        TextButton {
+            text: qsTr("Delete everything")
+            onClicked: tListView.modelRemoveAll()
+        }
+        TextButton {
+            text: qsTr("Save")
+            onClicked: tListView.model.save()
+        }
+    }
 }

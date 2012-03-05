@@ -44,14 +44,24 @@ ListModel {
                            var rs = tx.executeSql('SELECT * FROM tasklist;');
                            if (rs.rows.length > 0) {
                                for (var i=0; i<rs.rows.length; i++) {
-                                   tListModel.append({name: rs.rows.item(i).name,
-                                                         point: rs.rows.item(i).point});
+                                   tListModel.append({"name": rs.rows.item(i).name,
+                                                         "point": rs.rows.item(i).point});
                                }
                                res = "Ok";
                            } else {
                                res = "Unknown";
                            }
-                       })
+                       });
         return res
+    }
+
+    function save() {
+        var db = getDb();
+        db.transaction(function(tx) {
+                           tx.executeSql('DELETE FROM tasklist');
+                       });
+        for (var i=0; i<tListModel.count; i++) {
+            set(tListModel.get(i).name, tListModel.get(i).point);
+        }
     }
 }
