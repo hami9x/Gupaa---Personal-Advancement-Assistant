@@ -16,6 +16,8 @@ public:
 public slots:
     void showManage();
     void exitApp();
+    void showAbout();
+    void showAboutQt();
 };
 
 #endif // TRAYICON_H

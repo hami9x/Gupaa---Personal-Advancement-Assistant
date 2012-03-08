@@ -38,3 +38,6 @@ RESOURCES += \
 HEADERS += \
     trayicon.h \
     resourceimageprovider.h
+
+OTHER_FILES += \
+    LICENSE.txt
