@@ -1,4 +1,4 @@
-#include "ResourceImageProvider.h"
+#include "resourceimageprovider.h"
 
 QImage ResourceImageProvider::requestImage(const QString & id, QSize * size, const QSize & requestedSize)
 {
