@@ -8,19 +8,29 @@ TrayIcon::TrayIcon(QmlApplicationViewer * view, QObject *parent) :
 {
     this->view = view;
     QMenu * menu = new QMenu();
+    menu->addAction(tr("&Tick"), this, SLOT(showTick()));
+    menu->addSeparator();
     menu->addAction(tr("&Manage..."), this, SLOT(showManage()));
     menu->addAction(tr("&Exit"), this, SLOT(exitApp()));
     menu->addSeparator();
-    menu->addAction(tr("About"), this, SLOT(showAbout()));
-    menu->addAction(tr("About Qt"), this, SLOT(showAboutQt()));
+    menu->addAction(tr("&About"), this, SLOT(showAbout()));
+    menu->addAction(tr("About &Qt"), this, SLOT(showAboutQt()));
     setContextMenu(menu);
 
     this->setIcon(QIcon(":/Gupaa.png"));
 }
 
-void TrayIcon::showManage() {
-    view->setMainQmlFile("qml/taskManagement/TaskManWindow.qml");
+void TrayIcon::showQml(const QString file) {
+    view->setMainQmlFile(file);
     view->showExpanded();
+}
+
+void TrayIcon::showManage() {
+    showQml("qml/taskManagement/TaskManWindow.qml");
+}
+
+void TrayIcon::showTick() {
+    showQml("qml/taskManagement/TickWindow.qml");
 }
 
 void TrayIcon::exitApp() {
@@ -28,8 +38,7 @@ void TrayIcon::exitApp() {
 }
 
 void TrayIcon::showAbout() {
-    view->setMainQmlFile("qml/about.qml");
-    view->showExpanded();
+    showQml("qml/about.qml");
 }
 
 void TrayIcon::showAboutQt() {

@@ -4,5 +4,7 @@
         <file>pics/arrow-up.png</file>
         <file>pics/edit.png</file>
         <file>Gupaa.png</file>
+        <file>pics/checkbox_checked.png</file>
+        <file>pics/checkbox_unchecked.png</file>
     </qresource>
 </RCC>

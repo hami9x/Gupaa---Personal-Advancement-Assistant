@@ -18,6 +18,8 @@ public slots:
     void exitApp();
     void showAbout();
     void showAboutQt();
+    void showTick();
+    void showQml(QString file);
 };
 
 #endif // TRAYICON_H
