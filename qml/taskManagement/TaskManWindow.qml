@@ -4,6 +4,7 @@ Rectangle {
     id: container
     width: 500
     height: 500
+
     TaskList {
         id: theTaskList
         anchors.fill: parent

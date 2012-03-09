@@ -1,13 +1,9 @@
 import QtQuick 1.1
 
-ListModel {
+BaseTaskModel {
     id: tListModel
 
     Component.onCompleted: init()
-
-    function getDb() {
-        return openDatabaseSync("GupaaTL", 1.0, "The list of tasks in Gupaa", 100000);
-    }
 
     function init() {
         var db = getDb();

@@ -62,14 +62,14 @@ Rectangle {
                     PushButton {
                         source: "image://qrc/pics/arrow-up.png"                        
                         onClicked: {
-                            var moveTo = index==0 ? tListModel.count-1 : index-1
+                            var moveTo = index===0 ? tListModel.count-1 : index-1
                             tListModel.move(index, moveTo, 1)
                         }
                     }
                     PushButton {
                         source: "image://qrc/pics/arrow-down.png"
                         onClicked: {
-                            var moveTo = index==tListModel.count-1 ? 0 : index+1;
+                            var moveTo = index===tListModel.count-1 ? 0 : index+1;
                             tListModel.move(index, moveTo, 1)
                         }
                     }
@@ -115,12 +115,32 @@ Rectangle {
             }
         }
 
+        function showNothingMessage() {
+            nothingMsg.visible = true;
+        }
+
+        function hideNothingMessage() {
+            nothingMsg.visible = false;
+        }
+
+        Text {
+            id: nothingMsg
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            horizontalAlignment: Text.AlignHCenter
+            text: qsTr("There's no item here yet. You could add new ones with the Add button below.")
+            visible: false
+            wrapMode: Text.WordWrap
+        }
+
         ListModel {
             id: delList
         }
 
         model: TaskListModel {
             id: tListModel
+            msgObj: nothingMsg
         }
 
         delegate: tListDelegate

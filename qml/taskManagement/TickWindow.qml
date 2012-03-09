@@ -36,7 +36,7 @@ Rectangle {
                 anchors.right: parent.right
                 CheckBox {
                     id: checkBox
-                    state: tModel.get(index).done == 1 ? "checked" : ""
+                    state: tModel.get(index).done === 1 ? "checked" : ""
 
                     onStateChanged: {
                         var theState = checkBox.state == "" ? 0 : 1;
@@ -56,8 +56,21 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: btnsContainer.top
 
+        Text {
+            id: nothingMsg
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.margins: 20
+            horizontalAlignment: Text.AlignHCenter
+            text: qsTr("There's no item here yet. You could use the 'Manage...' window to add.")
+            visible: false
+            wrapMode: Text.WordWrap
+        }
+
         model: TickModel {
             id: tModel
+            msgObj: nothingMsg
         }
 
         delegate: tListDelegate
