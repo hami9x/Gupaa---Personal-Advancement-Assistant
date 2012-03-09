@@ -15,21 +15,21 @@ ListModel {
             function(tx) {
                 // Create the tasklist table if it doesn't already exist
                 // If the table exists, this is skipped
-                tx.executeSql("CREATE TABLE IF NOT EXISTS tasklist(name TEXT UNIQUE, point INT, done TINYINT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS tasklist(pos INT, name TEXT UNIQUE, point INT, done TINYINT)");
         });
         fetch();
     }
 
-    function set(name, point) {
+    function set(id, pos, name, point) {
         var db = getDb();
         var res = "";
         db.transaction(
            function(tx) {
-                        var rs;
-                        rs = tx.executeSql('SELECT name FROM tasklist WHERE name=?', [name]);
+                        id = typeof id === 'undefined' ? -1 : id;
+                        var rs = tx.executeSql('SELECT rowid FROM tasklist WHERE rowid=?', [id]);
                         if (rs.rows.length > 0)
-                            tx.executeSql('UPDATE tasklist SET point=? WHERE name=?', [point, name]);
-                        else tx.executeSql('INSERT INTO tasklist VALUES (?,?,0);', [name,point]);
+                            tx.executeSql('UPDATE tasklist SET pos=?, name=?, point=? WHERE rowid=?', [pos, name, point, id]);
+                        else tx.executeSql('INSERT INTO tasklist VALUES (?,?,?,0);', [pos,name,point]);
            }
         );
     }
@@ -38,10 +38,11 @@ ListModel {
         var db = getDb();
         var res="";
         db.transaction(function(tx) {
-                           var rs = tx.executeSql('SELECT * FROM tasklist;');
+                           var rs = tx.executeSql('SELECT rowid,* FROM tasklist ORDER BY pos');
                            if (rs.rows.length > 0) {
                                for (var i=0; i<rs.rows.length; i++) {
-                                   tListModel.append({"name": rs.rows.item(i).name,
+                                   tListModel.append({  "id": rs.rows.item(i).rowid,
+                                                         "name": rs.rows.item(i).name,
                                                          "point": rs.rows.item(i).point});
                                }
                                res = "Ok";
@@ -52,21 +53,17 @@ ListModel {
         return res
     }
 
-    function del(name) {
-        var db = getDb();
-        var res="";
-        db.transaction(function(tx) {
-                           var rs = tx.executeSql('DELETE FROM tasklist WHERE name=?;', [name]);
-                       });
-    }
-
     function save(delList) {
-        for (var i=0; i<delList.length; i++) {
-            del(delList[i])
-        }
+        var db = getDb();
+
+        for (var j=0; j<delList.count; j++) {
+            db.transaction(function(tx) {
+                                   tx.executeSql('DELETE FROM tasklist WHERE rowid=?;', [delList.get(j).id]);
+                           });
+                }
 
         for (var i=0; i<tListModel.count; i++) {
-            set(tListModel.get(i).name, tListModel.get(i).point);
+            set(tListModel.get(i).id, i, tListModel.get(i).name, tListModel.get(i).point);
         }
     }
 }

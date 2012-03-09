@@ -90,7 +90,6 @@ Rectangle {
 
     ListView {
         id: tListView
-        property variant delList: []
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -101,15 +100,23 @@ Rectangle {
             model.append({"name": qsTr("Here is some text that describes a task, click here to edit"), "point": 0});
         }
 
-        function modelDel(index) {
-            tListModel.remove(index);
-            delList.push(tListModel.get(index).name);
+        function modelDel(i) {
+            var id = tListModel.get(i).id;
+            if (typeof id !== 'undefined') {
+                delList.append({"id": id});
+            }
+
+            tListModel.remove(i);
         }
 
         function modelRemoveAll() {
-            for (var i=0; i<tListModel.count; i++) {
-                modelDel(i);
+            while (tListModel.count != 0) {
+                modelDel(tListModel.count-1);
             }
+        }
+
+        ListModel {
+            id: delList
         }
 
         model: TaskListModel {
@@ -118,6 +125,7 @@ Rectangle {
 
         delegate: tListDelegate
     }
+
 
     Row {
         id: btnsContainer
@@ -135,7 +143,7 @@ Rectangle {
         }
         TextButton {
             text: qsTr("Save")
-            onClicked: tListView.model.save(tListView.delList)
+            onClicked: tListView.model.save(delList)
 
         }
     }
