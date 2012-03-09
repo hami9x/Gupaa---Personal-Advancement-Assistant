@@ -36,7 +36,7 @@ Rectangle {
                 anchors.right: parent.right
                 CheckBox {
                     id: checkBox
-                    state: tModel.get(index).done === 1 ? "checked" : ""
+                    state: tModel.get(index).done == 1 ? "checked" : ""
 
                     onStateChanged: {
                         var theState = checkBox.state == "" ? 0 : 1;
