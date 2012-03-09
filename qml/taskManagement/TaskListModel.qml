@@ -15,7 +15,7 @@ ListModel {
             function(tx) {
                 // Create the tasklist table if it doesn't already exist
                 // If the table exists, this is skipped
-                tx.executeSql("CREATE TABLE IF NOT EXISTS tasklist(id INT PRIMARY KEY, name TEXT UNIQUE, point INT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS tasklist(name TEXT UNIQUE, point INT, done TINYINT)");
         });
         fetch();
     }
@@ -23,18 +23,15 @@ ListModel {
     function set(name, point) {
         var db = getDb();
         var res = "";
-        db.transaction(function(tx) {
-               var rs = tx.executeSql('INSERT OR REPLACE INTO tasklist VALUES (?,?);', [name,point]);
-               //console.log(rs.rowsAffected)
-               if (rs.rowsAffected > 0) {
-                   res = "OK";
-               } else {
-                   res = "Error";
-               }
+        db.transaction(
+           function(tx) {
+                        var rs;
+                        rs = tx.executeSql('SELECT name FROM tasklist WHERE name=?', [name]);
+                        if (rs.rows.length > 0)
+                            tx.executeSql('UPDATE tasklist SET point=? WHERE name=?', [point, name]);
+                        else tx.executeSql('INSERT INTO tasklist VALUES (?,?,0);', [name,point]);
            }
         );
-        // The function returns “OK” if it was successful, or “Error” if it wasn't
-        return res;
     }
 
     function fetch() {
@@ -55,11 +52,19 @@ ListModel {
         return res
     }
 
-    function save() {
+    function del(name) {
         var db = getDb();
+        var res="";
         db.transaction(function(tx) {
-                           tx.executeSql('DELETE FROM tasklist');
+                           var rs = tx.executeSql('DELETE FROM tasklist WHERE name=?;', [name]);
                        });
+    }
+
+    function save(delList) {
+        for (var i=0; i<delList.length; i++) {
+            del(delList[i])
+        }
+
         for (var i=0; i<tListModel.count; i++) {
             set(tListModel.get(i).name, tListModel.get(i).point);
         }

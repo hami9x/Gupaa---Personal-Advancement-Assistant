@@ -90,6 +90,7 @@ Rectangle {
 
     ListView {
         id: tListView
+        property variant delList: []
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -97,11 +98,18 @@ Rectangle {
         anchors.bottom: btnsContainer.top
 
         function modelAddItem() {
-            model.append({"name": qsTr("Here are some texts that describe a task, click here to edit"), "point": 0});
+            model.append({"name": qsTr("Here is some text that describes a task, click here to edit"), "point": 0});
+        }
+
+        function modelDel(index) {
+            tListModel.remove(index);
+            delList.push(tListModel.get(index).name);
         }
 
         function modelRemoveAll() {
-            model.clear();
+            for (var i=0; i<tListModel.count; i++) {
+                modelDel(i);
+            }
         }
 
         model: TaskListModel {
@@ -127,7 +135,8 @@ Rectangle {
         }
         TextButton {
             text: qsTr("Save")
-            onClicked: tListView.model.save()
+            onClicked: tListView.model.save(tListView.delList)
+
         }
     }
 }

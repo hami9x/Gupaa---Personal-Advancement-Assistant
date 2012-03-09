@@ -36,6 +36,12 @@ Rectangle {
                 anchors.right: parent.right
                 CheckBox {
                     id: checkBox
+                    state: tModel.get(index).done == 1 ? "checked" : ""
+
+                    onStateChanged: {
+                        var theState = checkBox.state == "" ? 0 : 1;
+                        tModel.setProperty(index, "done", theState);
+                    }
                 }
             }
         }
@@ -50,8 +56,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: btnsContainer.top
 
-        model: TaskListModel {
-            id: tListModel
+        model: TickModel {
+            id: tModel
         }
 
         delegate: tListDelegate
