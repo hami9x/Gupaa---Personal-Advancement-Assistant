@@ -13,13 +13,17 @@ Rectangle {
     Column {
         spacing: 30
         anchors.fill: parent
-        Text {
-            id: title
-            text: qsTr("Your score today is...")
-            anchors.top: parent.top
-            anchors.margins: 20
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 27
+        anchors.margins: 20
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: childrenRect.height
+            Text {
+                id: title
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Your score today is...")
+                font.pixelSize: 27
+            }
         }
 
         Text {
@@ -32,14 +36,9 @@ Rectangle {
             font.bold: true
             font.pixelSize: 59
 
-            SequentialAnimation {
-                id: animation
-                running: true
-                loops: totalScoreText.totalScore
-                PauseAnimation { duration: 150 }
-                ScriptAction {
-                    script: totalScoreText.current++;
-                }
+            NumberAnimation on current {
+                to: totalScoreText.totalScore
+                duration: 2000
             }
         }
     }

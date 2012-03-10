@@ -50,7 +50,6 @@ BaseTaskModel {
         var rs="";
         db.transaction(function(tx) {
             rs = tx.executeSql("SELECT sum(point) AS theSum FROM tasklist WHERE done=1");
-                           console.log("sum: " + (rs.rows.item(0).theSum)*1);
         });
         return rs.rows.item(0).theSum*1;
     }
