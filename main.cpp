@@ -1,17 +1,18 @@
 #include <QtGui/QApplication>
 #include <QtDeclarative/QDeclarativeEngine>
-#include "qmlapplicationviewer.h"
 #include "resourceimageprovider.h"
 #include "trayicon.h"
+#include "qmlview.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
 
-    QmlApplicationViewer viewer;
+    QmlView viewer;
     viewer.engine()->addImageProvider("qrc", new ResourceImageProvider());
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
+    viewer.setOrientation(QmlView::ScreenOrientationAuto);
+    QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     TrayIcon tray(&viewer);
     tray.show();

@@ -3,15 +3,15 @@
 
 #include <QSystemTrayIcon>
 #include <QDeclarativeView>
-#include "qmlapplicationviewer.h"
+#include "qmlview.h"
 
 class TrayIcon : public QSystemTrayIcon
 {
     Q_OBJECT
 
-    QmlApplicationViewer *view;
+    QmlView *view;
 public:
-    explicit TrayIcon(QmlApplicationViewer * view, QObject *parent = 0);
+    explicit TrayIcon(QmlView * view, QObject *parent = 0);
 
 public slots:
     void showManage();
@@ -21,6 +21,7 @@ public slots:
     void showTick();
     void showScore();
     void showQml(QString file);
+    void exitAndSeeYouAgain();
 };
 
 #endif // TRAYICON_H

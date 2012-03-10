@@ -2,8 +2,9 @@
 #include <QMenu>
 #include <QIcon>
 #include <QApplication>
+#include <QMessageBox>
 
-TrayIcon::TrayIcon(QmlApplicationViewer * view, QObject *parent) :
+TrayIcon::TrayIcon(QmlView * view, QObject *parent) :
     QSystemTrayIcon(parent)
 {
     this->view = view;
@@ -50,4 +51,10 @@ void TrayIcon::showAboutQt() {
 
 void TrayIcon::showScore() {
     showQml("qml/ScoreWindow.qml");
+    connect(view, SIGNAL(closed()), this, SLOT(exitAndSeeYouAgain()));
+}
+
+void TrayIcon::exitAndSeeYouAgain() {
+    QMessageBox::information(view, tr("Good bye"), tr("Day ended, huh? See you again tomorrow :D"));
+    exitApp();
 }

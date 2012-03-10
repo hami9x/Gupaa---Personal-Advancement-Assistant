@@ -26,7 +26,8 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     trayicon.cpp \
-    resourceimageprovider.cpp
+    resourceimageprovider.cpp \
+    qmlview.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -37,7 +38,8 @@ RESOURCES += \
 
 HEADERS += \
     trayicon.h \
-    resourceimageprovider.h
+    resourceimageprovider.h \
+    qmlview.h
 
 OTHER_FILES += \
     LICENSE.txt

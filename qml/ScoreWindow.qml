@@ -1,12 +1,11 @@
 import QtQuick 1.1
-import "./taskManagement"
 
 Rectangle {
     id: scoreWindow
     width: 500
     height: 350
 
-    TickModel {
+    ScoreModel {
         id: model
     }
 
@@ -59,6 +58,7 @@ Rectangle {
             function show() {
                 percent = Math.round(totalScoreText.totalScore / model.getFullScore() * 100);
                 percentContainer.visible = true;
+                model.clearTicks();
             }
 
             Text {
