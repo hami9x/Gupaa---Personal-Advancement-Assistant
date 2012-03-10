@@ -53,4 +53,13 @@ BaseTaskModel {
         });
         return rs.rows.item(0).theSum*1;
     }
+
+    function getFullScore() {
+        var db = getDb();
+        var rs="";
+        db.transaction(function(tx) {
+            rs = tx.executeSql("SELECT sum(point) AS theSum FROM tasklist");
+        });
+        return rs.rows.item(0).theSum*1;
+    }
 }
