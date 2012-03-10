@@ -23,6 +23,8 @@ TrayIcon::TrayIcon(QmlApplicationViewer * view, QObject *parent) :
 void TrayIcon::showQml(const QString file) {
     view->setMainQmlFile(file);
     view->showExpanded();
+    view->activateWindow();
+    view->raise();
 }
 
 void TrayIcon::showManage() {

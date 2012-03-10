@@ -10,7 +10,8 @@ Rectangle {
             width: tListView.width; height: 55
             FocusScope {
                 id: nameContainer
-                anchors.margins: 10                
+                anchors.margins: 10
+                anchors.leftMargin: 20
                 anchors.left: parent.left
                 anchors.right: toolboxContainer.left
                 anchors.top: parent.top
@@ -18,7 +19,10 @@ Rectangle {
 
                 Item {
                     id: inputContainer
-                    anchors.fill: parent
+                    anchors.leftMargin: 0
+                    anchors.fill: parent                    
+                    clip: true
+
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
@@ -31,6 +35,7 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         anchors.left: parent.left
+                        wrapMode: TextEdit.WordWrap
                         text: name
 
                         onTextChanged: {
@@ -42,15 +47,23 @@ Rectangle {
             Row {
                 id: toolboxContainer
                 anchors.right: parent.right
-                anchors.margins: 10
+                anchors.margins: 20
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 10
-                width: 70
+
                 PushButton {
                     anchors.verticalCenter: toolboxContainer.verticalCenter
                     source: "image://qrc/pics/edit.png"
 
                     onClicked: nameContainer.forceActiveFocus()
+                }
+
+                PushButton {
+                    anchors.verticalCenter: toolboxContainer.verticalCenter
+                    source: "image://qrc/pics/delete.png"
+                    onClicked: {
+                        tListView.modelDel();
+                    }
                 }
 
                 Column {
@@ -66,6 +79,7 @@ Rectangle {
                             tListModel.move(index, moveTo, 1)
                         }
                     }
+
                     PushButton {
                         source: "image://qrc/pics/arrow-down.png"
                         onClicked: {
@@ -115,14 +129,6 @@ Rectangle {
             }
         }
 
-        function showNothingMessage() {
-            nothingMsg.visible = true;
-        }
-
-        function hideNothingMessage() {
-            nothingMsg.visible = false;
-        }
-
         Text {
             id: nothingMsg
             anchors.left: parent.left
@@ -150,7 +156,8 @@ Rectangle {
     Row {
         id: btnsContainer
         spacing: 10
-        anchors.margins: 10
+        anchors.margins: 20
+        anchors.left: parent.left
         anchors.bottom: parent.bottom
 
         TextButton {

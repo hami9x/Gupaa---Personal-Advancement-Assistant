@@ -4,7 +4,6 @@ ListModel {
     signal emptied
     signal unemptied
 
-    /*property string nothingMessage: "There's nothing here yet."*/
     property bool empty: count===0 ? true : false
     property variant msgObj: 0
 

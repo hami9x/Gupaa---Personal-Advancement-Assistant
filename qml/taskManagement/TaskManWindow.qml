@@ -8,7 +8,6 @@ Rectangle {
     TaskList {
         id: theTaskList
         anchors.fill: parent
-        anchors.margins: 20
         anchors.horizontalCenter: container.horizontalCenter
     }
 }

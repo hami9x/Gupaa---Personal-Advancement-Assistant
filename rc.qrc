@@ -6,5 +6,6 @@
         <file>Gupaa.png</file>
         <file>pics/checkbox_checked.png</file>
         <file>pics/checkbox_unchecked.png</file>
+        <file>pics/delete.png</file>
     </qresource>
 </RCC>
