@@ -8,13 +8,14 @@ TrayIcon::TrayIcon(QmlApplicationViewer * view, QObject *parent) :
 {
     this->view = view;
     QMenu * menu = new QMenu();
-    menu->addAction(tr("&Tick"), this, SLOT(showTick()));
+    menu->addAction((tr("&End of day")), this, SLOT(showScore()));
     menu->addSeparator();
+    menu->addAction(tr("&Tick"), this, SLOT(showTick()));
     menu->addAction(tr("&Manage..."), this, SLOT(showManage()));
-    menu->addAction(tr("&Exit"), this, SLOT(exitApp()));
     menu->addSeparator();
     menu->addAction(tr("&About"), this, SLOT(showAbout()));
     menu->addAction(tr("About &Qt"), this, SLOT(showAboutQt()));
+    menu->addAction(tr("Exit"), this, SLOT(exitApp()));
     setContextMenu(menu);
 
     this->setIcon(QIcon(":/Gupaa.png"));
@@ -45,4 +46,8 @@ void TrayIcon::showAbout() {
 
 void TrayIcon::showAboutQt() {
     QApplication::aboutQt();
+}
+
+void TrayIcon::showScore() {
+    showQml("qml/ScoreWindow.qml");
 }

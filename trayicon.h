@@ -19,6 +19,7 @@ public slots:
     void showAbout();
     void showAboutQt();
     void showTick();
+    void showScore();
     void showQml(QString file);
 };
 
