@@ -43,3 +43,6 @@ HEADERS += \
 
 OTHER_FILES += \
     LICENSE.txt
+
+TRANSLATIONS = translations/gupaa_vi.ts
+CODECFORTR = UTF-8

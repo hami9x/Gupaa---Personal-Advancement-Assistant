@@ -24,6 +24,9 @@ Rectangle {
 
                 Text {
                     text: name
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    wrapMode: Text.WordWrap
                 }
             }
 

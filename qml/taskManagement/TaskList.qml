@@ -111,7 +111,7 @@ Rectangle {
         anchors.bottom: btnsContainer.top
 
         function modelAddItem() {
-            model.append({"name": qsTr("Here is some text that describes a task, click here to edit"), "point": 1});
+            model.append({"name": qsTr("Here is some text that describes a task, on the right side is the value of this task. Click to edit."), "point": 1});
         }
 
         function modelDel(i) {
@@ -145,7 +145,8 @@ Rectangle {
                 text: qsTr("There's no item here yet. You could add new ones with the Add button below.")
                 wrapMode: Text.WordWrap
             }
-}
+        }
+
         ListModel {
             id: delList
         }
