@@ -3,6 +3,9 @@
 #include <QIcon>
 #include <QApplication>
 #include <QMessageBox>
+#include <QDeclarativeComponent>
+#include <QDeclarativeItem>
+#include <QDebug>
 
 TrayIcon::TrayIcon(QmlView * view, QObject *parent) :
     QSystemTrayIcon(parent)
@@ -55,6 +58,15 @@ void TrayIcon::showScore() {
 }
 
 void TrayIcon::exitAndSeeYouAgain() {
-    QMessageBox::information(view, tr("Good bye"), tr("Day ended, huh? See you again tomorrow :D"));
-    exitApp();
+
+    QDeclarativeComponent comp(view->engine(), QUrl::fromLocalFile("qml/ScoreModel.qml"));
+    QObject *myObject = comp.create();
+    //QDeclarativeItem *item = qobject_cast<QDeclarativeItem*>(myObject);
+    QVariant returned;
+    QMetaObject::invokeMethod(myObject, "getFullScore", Q_RETURN_ARG(QVariant, returned));
+
+    if (returned.toInt()==0) return;
+
+        QMessageBox::information(view, tr("Good bye"), tr("Day ended, huh? See you again tomorrow :D"));
+        exitApp();
 }

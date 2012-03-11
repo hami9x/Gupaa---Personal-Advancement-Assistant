@@ -9,7 +9,21 @@ Rectangle {
         id: model
     }
 
+    Text {
+        id: nothingMsg
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: 20
+        horizontalAlignment: Text.AlignHCenter
+        text: qsTr("Oops you haven't added any tasks yet, or you set all task scores to 0, please use the 'Manage...' window.")
+        visible: false
+        wrapMode: Text.WordWrap
+    }
+
+
     Column {
+        id: container
         spacing: 30
         anchors.fill: parent
         anchors.margins: 20
@@ -90,6 +104,13 @@ Rectangle {
                     return qsTr("Quite good, get 100% next time please!");
                 else return qsTr("My dear, you are awesome! Keep up the good work.")
             }
+        }
+    }
+
+    Component.onCompleted: {
+        if (model.getFullScore() === 0) {
+            nothingMsg.visible = true;
+            container.visible = false;
         }
     }
 }

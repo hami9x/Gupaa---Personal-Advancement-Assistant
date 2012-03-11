@@ -111,7 +111,7 @@ Rectangle {
         anchors.bottom: btnsContainer.top
 
         function modelAddItem() {
-            model.append({"name": qsTr("Here is some text that describes a task, click here to edit"), "point": 0});
+            model.append({"name": qsTr("Here is some text that describes a task, click here to edit"), "point": 1});
         }
 
         function modelDel(i) {
@@ -129,24 +129,30 @@ Rectangle {
             }
         }
 
-        Text {
-            id: nothingMsg
+        Rectangle {
+            id: nothingMsgContainer
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("There's no item here yet. You could add new ones with the Add button below.")
+            anchors.margins: 20
+            height: childrenRect.height
             visible: false
-            wrapMode: Text.WordWrap
-        }
-
+            Text {
+                id: nothingMsg
+                anchors.fill: parent
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                text: qsTr("There's no item here yet. You could add new ones with the Add button below.")
+                wrapMode: Text.WordWrap
+            }
+}
         ListModel {
             id: delList
         }
 
         model: TaskListModel {
             id: tListModel
-            msgObj: nothingMsg
+            msgObj: nothingMsgContainer
         }
 
         delegate: tListDelegate
